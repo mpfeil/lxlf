@@ -7,13 +7,22 @@ angular
     'ngSanitize',
     'ngRoute',
     'firebase',
-    'leaflet-directive'
+    'leaflet-directive',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
+      })
+      .when('/map', {
+        templateUrl: 'views/map.html',
+        controller: 'MapCtrl'
+      })
+      .when('/contact', {
+        templateUrl: 'views/contact.html',
+        controller: 'ContactCtrl'
       })
       .otherwise({
         redirectTo: '/'
