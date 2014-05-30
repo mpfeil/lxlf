@@ -4,3 +4,22 @@
 	</div>
 </div>
 
+<div class="row">
+
+	<div class="col-lg-12">
+		<h4>Default <a href="#/map/new" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span></a></h4>	
+
+		<div class="col-md-3 col-lg-3" ng-repeat="marker in markers">
+			<a class="thumbnail" ng-click="zoomTo(marker.lat,marker.lng)">
+				<img width="50" height="100" src="http://sensebox.uni-muenster.de/wp-content/uploads/sites/12/2013/03/iconmonstr-map-2-icon-256-2.png" alt="...">
+				<h5 style="text-align: center;">{{marker.lat}}:{{marker.lng}}</h5>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<pagination total-items="totalItems" items-per-page="4" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+	</div>
+</div>

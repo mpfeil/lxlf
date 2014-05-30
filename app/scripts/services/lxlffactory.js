@@ -9,6 +9,7 @@ angular.module('lxlfApp')
       getMarkers: function() {
         var markers = [];
         ref.on("child_added", function(snapshot) {
+          console.log(snapshot);
           var marker = {};
           marker.lat = snapshot.val().lat;
           marker.lng = snapshot.val().lng;
