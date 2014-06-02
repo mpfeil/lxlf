@@ -21,35 +21,49 @@
 				            <textarea type="textarea" rows="3" name="long" class="form-control" ng-model="newItem.long" required></textarea>
 				            <p ng-show="newlfForm.long.$invalid  && submitted" class="help-block">Please provide a detailed description.</p>
 				        </div>
+
+				        <!-- LOST AND FOUND DATE -->
+				        <div class="form-group" ng-class="{ 'has-error' : newlfForm.date.$invalid  && submitted}">
+				            <label>When have you lost or found it?</label>
+				            <div class="input-group input-group-sm">
+				                <p class="input-group">
+				                	<span class="input-group-btn">
+					                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+					              </span>
+					              <input type="text" name="date" class="form-control" datepicker-popup="{{format}}" ng-model="newItem.date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+					            </p>
+				            </div>
+				            <p ng-show="newlfForm.date.$invalid  && submitted" class="help-block">Please provide a date.</p>
+				        </div>	
 				        
 				        <!-- CONTACT -->
 				        <div class="form-group" ng-class="{ 'has-error' : newlfForm.contact.$invalid && submitted}">
 				            <label>How to contact you?</label>
-				            <div class="input-group input-group-sm">
-							  <span class="input-group-addon">@</span>
-							  <input type="text" name="contact" class="form-control" ng-model="newItem.contact.twitter" placeholder="Twitter Username" required>
+				            <!-- <div class="input-group input-group-sm">
+							  <span class="input-group-addon"><i class="fa fa-twitter"></i></span>
+							  <input type="text" name="contact" class="form-control" ng-model="newItem.contact.twitter" placeholder="Twitter Username" ng-required="contacts()" required>
 							</div>
 							<br />
 							<div class="input-group input-group-sm">
-							  <span class="input-group-addon">@</span>
-							  <input type="text" name="contact" class="form-control" ng-model="newItem.contact.facebook" placeholder="Twitter Username" required>
-							</div>
+							  <span class="input-group-addon"><i class="fa fa-facebook"></i></span>
+							  <input type="text" name="contact" class="form-control" ng-model="newItem.contact.facebook" placeholder="Facebook Username" ng-required="contacts()" required>
+							</div> -->
 							<br />
 							<div class="input-group input-group-sm">
-							  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-							  <input type="text" name="contact" class="form-control" ng-model="newItem.contact.email" placeholder="Twitter Username" required>
+							  <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+							  <input type="email" name="contact" class="form-control" ng-model="newItem.contact" placeholder="Email" required>
 							</div>
 							<br />
-				            <!-- <input type="email" name="contact" class="form-control" ng-model="newItem.contact" required> -->
 				            <p ng-show="newlfForm.contact.$invalid  && submitted" class="help-block">Please enter one contact.</p>
 				        </div>
 
 				        <!-- SUBMIT BUTTON -->
+				        <!-- <a href="#/map"><button type="submit" class="btn btn-success btn-lg btn-block"><span class="glyphicon glyphicon-ok"></span> Submit</button></a> -->
 						<button type="submit" class="btn btn-primary">Submit</button>
 				    </form>
 				</div>
 				<div class="col-md-4 col-lg-4">
-					<leaflet center="center" markers="markers" defaults="defaults" width="100%" height="250px">
+					<leaflet center="center" markers="markers" defaults="defaults" width="100%" height="450px">
 					</leaflet>
 				</div>
 			</div>

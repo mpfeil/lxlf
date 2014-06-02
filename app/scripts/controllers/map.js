@@ -5,7 +5,6 @@ angular.module('lxlfApp')
     function($scope, service, leafletData) {
 
       $scope.markers = service.getMarkers();
-      $scope.pagedMarkers = $scope.markers;
 
       $scope.addMarker = function(e) {
       	if (e.keyCode != 13 ) return;
@@ -25,20 +24,5 @@ angular.module('lxlfApp')
         $scope.center.lng = lng;
         $scope.center.zoom = 18;
       }
-
-      $scope.addLostFound = function() {
-
-      }
-
-      $scope.totalItems = $scope.markers.length;
-      $scope.currentPage = 1;
-
-      $scope.setPage = function (pageNo) {
-        $scope.currentPage = pageNo;
-      };
-
-      $scope.pageChanged = function() {
-        console.log('Page changed to: ' + $scope.currentPage);
-      };
     }
   ]);
