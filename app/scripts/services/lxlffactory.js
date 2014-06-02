@@ -2,13 +2,13 @@
 
 angular.module('lxlfApp')
   .factory('lxlfFactory', function () {
-    var ref = new Firebase("https://lxlf.firebaseio.com/lost");
+    var ref = new Firebase('https://lxlf.firebaseio.com/lost');
 
     // Public API here
     return {
       getMarkers: function() {
         var markers = [];
-        ref.on("child_added", function(snapshot) {
+        ref.on('child_added', function(snapshot) {
           console.log(snapshot);
           var marker = {};
           marker.lat = snapshot.val().lat;
@@ -20,5 +20,5 @@ angular.module('lxlfApp')
       addMarker: function(marker) {
         ref.push(marker);
       }
-    }
+    };
   });

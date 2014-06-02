@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lxlfApp')
-  .controller('NewCtrl', ["$scope", "$location", "lxlfFactory",
+  .controller('NewCtrl', ['$scope', '$location', 'lxlfFactory',
     function($scope, $location, service) {
 
       $scope.center = {
@@ -12,21 +12,21 @@ angular.module('lxlfApp')
 
       $scope.markers = {
         box: {
-            lat: 52,
-            lng: 7,
-            focus: true,
-            draggable: true
+          lat: 52,
+          lng: 7,
+          focus: true,
+          draggable: true
         }
       };
 
       $scope.defaults = {
-        tileLayer: "http://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
-          tileLayerOptions: {
-            opacity: 0.9,
-              detectRetina: true,
-              reuseTiles: true,
-          },
-          scrollWheelZoom: false
+        tileLayer: 'http://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        tileLayerOptions: {
+          opacity: 0.9,
+          detectRetina: true,
+          reuseTiles: true,
+        },
+        scrollWheelZoom: false
       };
 
       $scope.submitted = false;
@@ -39,10 +39,10 @@ angular.module('lxlfApp')
         // check to make sure the form is completely valid
         if (isValid) {
           service.addMarker({
-            lat: $scope.markers.box.lat, 
-            lng: $scope.markers.box.lng, 
-            desc: $scope.newItem.short, 
-            descLong: $scope.newItem.long, 
+            lat: $scope.markers.box.lat,
+            lng: $scope.markers.box.lng,
+            desc: $scope.newItem.short,
+            descLong: $scope.newItem.long,
             date: $scope.newItem.date,
             contact: $scope.newItem.contact
           });
