@@ -2,27 +2,27 @@
 
 angular.module('lxlfApp')
   .controller('MapCtrl', ['$scope', 'lxlfFactory',
-    function($scope, service) {
+    function($scope, lxlfService) {
 
-    $scope.markers = service.getMarkers();
+      $scope.markers = [];
 
-    $scope.addMarker = function(e) {
-      if (e.keyCode !== 13 ) {return;}
-      service.addMarker({lat: $scope.lat, lng: $scope.lng});
-      $scope.lat = '';
-      $scope.lng = '';
-    };
+      lxlfService.$on('child_added', function(entry){
+        var marker = {};
+        marker.lat = entry.snapshot.value.lat;
+        marker.lng = entry.snapshot.value.lng;
+        $scope.markers.push(marker);
+      });
 
-    $scope.center = {
-      lat: 40.095,
-      lng: -3.823,
-      zoom: 4
-    };
+      $scope.center = {
+        lat: 40.095,
+        lng: -3.823,
+        zoom: 4
+      };
 
-    $scope.zoomTo = function(lat,lng) {
-      $scope.center.lat = lat;
-      $scope.center.lng = lng;
-      $scope.center.zoom = 18;
-    };
-  }
-]);
+      $scope.zoomTo = function(lat,lng) {
+        $scope.center.lat = lat;
+        $scope.center.lng = lng;
+        $scope.center.zoom = 18;
+      };
+    }
+  ]);

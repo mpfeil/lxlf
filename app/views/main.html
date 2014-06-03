@@ -1,13 +1,13 @@
 <div class="row">
-  <div class="col-lg-12 fullsize">
-    <div id="messagesDiv">
-  <div ng-repeat="marker in markers"><em>{{marker.lat}}</em>: {{marker.lng}}</div>
-</div>
-<hr>
-<input type="number" ng-model="lat" placeholder="Latitude">
-<input type="number" ng-model="lng" ng-keydown="addMarker($event)" placeholder="Longitude">
-<br />    
-  </div>
+  	<div class="col-lg-12 fullsize">
+    	<div id="messagesDiv">
+  			<div ng-repeat="marker in markers"><em>{{marker.lat}}</em>: {{marker.lng}}</div>
+		</div>
+		<hr>
+		<input type="number" ng-model="lat" placeholder="Latitude">
+		<input type="number" ng-model="lng" ng-keydown="addMarker($event)" placeholder="Longitude">
+		<br />    
+  	</div>
 </div>
 
 <div class="footer">

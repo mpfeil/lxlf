@@ -2,7 +2,7 @@
 
 angular.module('lxlfApp')
   .controller('NewCtrl', ['$scope', '$location', 'lxlfFactory',
-    function($scope, $location, service) {
+    function($scope, $location, lxlfService) {
 
       $scope.center = {
         lat: 52,
@@ -38,7 +38,7 @@ angular.module('lxlfApp')
 
         // check to make sure the form is completely valid
         if (isValid) {
-          service.addMarker({
+          lxlfService.$add({
             lat: $scope.markers.box.lat,
             lng: $scope.markers.box.lng,
             desc: $scope.newItem.short,
