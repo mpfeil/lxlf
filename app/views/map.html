@@ -27,9 +27,84 @@
 				</form>
 			</div>
 			<div class="comments">
-				<ul ng-repeat="comment in selectedMarker.comments">{{comment.name}}</ul>
+				<accordion close-others="oneAtATime">
+				    <accordion-group ng-repeat="comment in selectedMarker.comments">
+				    	<accordion-heading>
+				            {{comment.name}} <i class="pull-right fa fa-caret-square-o-down"></i>
+				        </accordion-heading>
+				      	{{comment.body}}
+				    </accordion-group>
+				</accordion>
 			</div>
 		</div>
-		<leaflet center="center" markers="markers" width="100%" height="600"></leaflet>	
+		<div class="info box" ng-show="newLF">
+			<h2>New Lost & Found</h2>
+			<hr>
+			<form name="newlfForm" ng-submit="submitForm(newlfForm.$valid)" novalidate>
+				<!-- CATEGORY -->
+				<div class="form-group" ng-class="{ 'has-error' : newlfForm.category.$invalid  && submitted}">
+		            <label>Category</label>
+		            <select class="form-control" name="category" ng-model="newItem.category" required>
+						<option value="lost">Lost</option>
+						<option value="found">Found</option>
+					</select>
+		            <p ng-show="newlfForm.category.$invalid  && submitted" class="help-block">Please select a category.</p>
+		        </div>
+				<!-- SHORT DESCRIPTION -->
+				<div class="form-group" ng-class="{ 'has-error' : newlfForm.short.$invalid  && submitted}">
+		            <label>What have you lost or found?</label>
+		            <input type="text" name="short" class="form-control" ng-model="newItem.short" required>
+		            <p ng-show="newlfForm.short.$invalid  && submitted" class="help-block">Please enter a short description or product name.</p>
+		        </div>
+		        <!-- LONG DESCRIPTION -->
+		        <div class="form-group" ng-class="{ 'has-error' : newlfForm.long.$invalid  && submitted}">
+		            <label>Describe what you have lost or found in detail!</label>
+		            <textarea type="textarea" rows="3" name="long" class="form-control" ng-model="newItem.long" required></textarea>
+		            <p ng-show="newlfForm.long.$invalid  && submitted" class="help-block">Please provide a detailed description.</p>
+		        </div>
+		        <!-- TAGS -->
+		        <div class="form-group" ng-class="{ 'has-error' : newlfForm.long.$invalid  && submitted}">
+		            <label>Tags</label>
+		            <tags-input class="bootstrap" name="tags" ng-model="newItem.tags" placeholder="Add tags" replace-spaces-with-dashes="false"></tags-input>
+		        </div>
+		        <!-- LOST AND FOUND DATE -->
+		        <div class="form-group" ng-class="{ 'has-error' : newlfForm.date.$invalid  && submitted}">
+		            <label>When have you lost or found it?</label>
+		            <div class="input-group input-group-sm">
+		                <p class="input-group">
+		                	<span class="input-group-btn">
+			                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="fa fa-calendar"></i></button>
+			              </span>
+			              <input type="text" name="date" class="form-control" datepicker-popup="{{format}}" ng-model="newItem.date" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+			            </p>
+		            </div>
+		            <p ng-show="newlfForm.date.$invalid  && submitted" class="help-block">Please provide a date.</p>
+		        </div>
+		        <!-- CONTACT -->
+		        <div class="form-group" ng-class="{ 'has-error' : newlfForm.contact.$invalid && submitted}">
+		            <label>How to contact you?</label>
+					<br />
+					<div class="input-group input-group-sm">
+					  <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+					  <input type="email" name="contact" class="form-control" ng-model="newItem.contact" placeholder="Email" required>
+					</div>
+					<br />
+		            <p ng-show="newlfForm.contact.$invalid  && submitted" class="help-block">Please enter one contact.</p>
+		        </div>
+		        <div class="form-group">
+		        	<div class="row">
+		        		<div class="col-lg-12">
+		        			<div class="col-lg-6">
+		        				<button type="submit" class="btn btn-success form-control"><i class="fa fa-floppy-o">&nbsp; Save</i></button>
+		        			</div>
+		        			<div class="col-lg-6">
+		        				<button ng-click="cancelForm()" class="btn btn-danger form-control"><i class="fa fa-flash">&nbsp; Cancel</i></button>	
+		        			</div>
+		        		</div>
+		        	</div>
+				</div>
+			</form>
+		</div>
+		<leaflet center="center" markers="markers" controls="controls" width="100%" height="600"></leaflet>	
 	</div>
 </div>

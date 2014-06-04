@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/leaflet-dist/leaflet.css" />
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
     <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/leaflet.draw/dist/leaflet.draw.css" />
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -38,8 +40,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#/map"><span class="glyphicon glyphicon-map-marker"></span> Map</a></li>
-            <li><a href="#/map/new"><span class="glyphicon glyphicon-plus"></span> Add</a></li>
+            <li><a href="#/map"><span class="glyphicon glyphicon-globe"></span> Map</a></li>
             <li><a href="#/contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -87,7 +88,9 @@
     <script src="bower_components/angularfire/angularfire.js"></script>
     <script src="bower_components/leaflet-dist/leaflet.js"></script>
     <script src="bower_components/angular-leaflet/dist/angular-leaflet-directive.js"></script>
+    <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
     <!-- endbower -->
+    <script src="bower_components/leaflet.draw/dist/leaflet.draw.js"></script>
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -96,7 +99,6 @@
         <script src="scripts/services/lxlffactory.js"></script>
         <script src="scripts/controllers/map.js"></script>
         <script src="scripts/controllers/contact.js"></script>
-        <script src="scripts/controllers/new.js"></script>
         <!-- endbuild -->
 </body>
 </html>

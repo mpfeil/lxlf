@@ -1,12 +1,112 @@
 'use strict';
 
 angular.module('lxlfApp')
-  .controller('MapCtrl', ['$scope', 'lxlfFactory',
-    function($scope, lxlfService) {
+  .controller('MapCtrl', ['$scope', 'lxlfFactory', 'leafletData',
+    function($scope, lxlfService, leafletData) {
+      var drawnItems = new L.FeatureGroup(),
+          options = {
+            edit: {
+              featureGroup: drawnItems,
+              remove: false,
+              edit: false
+            },
+            draw: {
+              polyline: false,
+              polygon: false,
+              circle: false,
+              rectangle: false,
+
+            }
+          },
+          drawControl = new L.Control.Draw(options);
+
+      L.drawLocal.draw.toolbar.buttons.marker = 'Add new Lost & Found';
+      L.drawLocal.draw.handlers.marker.tooltip.start = 'Click to place marker!';
+
+      $scope.controls = {
+        custom: [ drawControl ]
+      };
+
+      leafletData.getMap().then(function(map){
+        map.addLayer(drawnItems);
+
+        map.on('draw:created', function(e){
+          var layer = e.layer;
+          layer.on('dragend', function(e){
+            $scope.newLFMarker.lat = e.target._latlng.lat;
+            $scope.newLFMarker.lng = e.target._latlng.lng;
+          });
+          layer.options.draggable = true;
+          drawnItems.addLayer(layer);
+          $scope.newLF = true;
+          $scope.selected = false;
+        });
+      });
 
       $scope.markers = [];
       $scope.selectedMarker;
       $scope.selected = false;
+      $scope.newLF = false;
+      $scope.oneAtATime = true;
+      $scope.submitted = false;
+
+      $scope.newLFMarker = {
+        lat: 52,
+        lng: 7,
+      };
+
+      $scope.cancelForm = function() {
+        $scope.newLF = false;
+        $scope.newItem.category = '';
+        $scope.newItem.short = '';
+        $scope.newItem.long = '';
+        $scope.newItem.date = '';
+        $scope.newItem.tags = 0;
+        $scope.newItem.contact = 0;
+        $scope.submitted = false;
+      };
+
+      // function to submit the form after all validation has occurred      
+      $scope.submitForm = function(isValid) {
+
+        $scope.submitted = true;
+
+        // check to make sure the form is completely valid
+        if (isValid) {
+          lxlfService.$add({
+            lat: $scope.newLFMarker.lat,
+            lng: $scope.newLFMarker.lng,
+            desc: $scope.newItem.short,
+            descLong: $scope.newItem.long,
+            date: $scope.newItem.date,
+            tags: $scope.newItem.tags,
+            category: $scope.newItem.category,
+            contact: $scope.newItem.contact
+          });
+          $scope.newLF = false;
+        }
+      };
+
+      $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        $scope.opened = true;
+      };
+
+      $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+      };
+
+      $scope.initDate = new Date('2016-15-20');
+      $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+      $scope.format = $scope.formats[0];
+
+      $scope.status = {
+        isFirstOpen: true,
+        isFirstDisabled: false
+      };
 
       lxlfService.$on('child_added', function(entry){
         var marker = {};
@@ -79,9 +179,11 @@ angular.module('lxlfApp')
 
       $scope.onComplete = function(error) {
         if (error) {
-          alert('Synchronization failed.');
+          // alert('Synchronization failed.');
         } else {
           $scope.comment = false;
+          $scope.name = '';
+          $scope.body = '';
         }
       };
 

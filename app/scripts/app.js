@@ -8,7 +8,8 @@ angular
     'ngRoute',
     'firebase',
     'leaflet-directive',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngTagsInput'
   ])
   .config(function ($routeProvider) {
     $routeProvider
