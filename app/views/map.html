@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-lg-12 fullsize">
 		<div class="info box" ng-show="selected">
-			<h3>{{selectedMarker.desc}} <i class="fa fa-times pull-right close" ng-click="closeDetails()"></i></h3>
+			<h3>{{selectedMarker.desc}} - {{selectedMarker.category}} <i class="fa fa-times pull-right close" ng-click="closeDetails()"></i></h3>
 			<hr>
 			<div>
 				<p align="justify">{{selectedMarker.descLong}}</p>
@@ -10,6 +10,7 @@
 			<div class="list-group">
 			  <a class="list-group-item"><i class="fa fa-clock-o fa-fw"></i>&nbsp; {{formatTime(selectedMarker.date)}}</a>
 			  <a class="list-group-item" href="mailto:{{selectedMarker.contact}}?Subject=LXLF-{{selectedMarker.desc}}"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; {{selectedMarker.contact}}</a>
+			  <a class="list-group-item"><i class="fa fa-tags fa-fw"></i>&nbsp; {{selectedMarker.tags}}</a>
 			</div>
 			<hr>
 			<h4><i class="fa fa-comments-o"></i> Comments <i class="fa fa-plus-circle pull-right close" ng-click="addComment()"></i><span class="badge">{{getCommentCount(selectedMarker.comments)}}</span></h4>
@@ -114,13 +115,13 @@
 				</div>
 				<div class="col-lg-4">
 					<div class="btn-group">
-				        <label class="btn btn-primary" ng-model="checkModel.left" btn-checkbox><i class="fa fa-sort-numeric-asc"></i></label>
-				        <label class="btn btn-primary" ng-model="checkModel.middle" btn-checkbox><i class="fa fa-sort-numeric-desc"></i></label>
+				        <label class="btn btn-primary" ng-model="predicate" btn-radio="'date'" uncheckable><i class="fa fa-sort-numeric-asc"></i></label>
+				        <label class="btn btn-primary" ng-model="predicate" btn-radio="'-date'" uncheckable><i class="fa fa-sort-numeric-desc"></i></label>
 				    </div>
 				</div>
 			</div>
 			<hr>
-			<alert ng-repeat="marker in markers | filter:filtertext" type="{{lostOrFound(marker)}}">{{marker.desc}} <i class="fa fa-rocket pull-right close" ng-click="zoomTo(marker.lat,marker.lng)"></i></alert>
+			<alert ng-repeat="marker in markers | filter:filtertext | orderBy:predicate" type="{{lostOrFound(marker)}}">{{marker.desc}} <i class="fa fa-rocket pull-right close" ng-click="zoomTo(marker.lat,marker.lng)"></i></alert>
 		</div>
 		<leaflet center="center" markers="markers"  controls="controls" width="100%" height="600"></leaflet>	
 	</div>

@@ -52,6 +52,8 @@ angular.module('lxlfApp')
 
         map.on('draw:created', function(e){
           var layer = e.layer;
+          $scope.newLFMarker.lat = layer._latlng.lat;
+          $scope.newLFMarker.lng = layer._latlng.lng;
           layer.on('dragend', function(e){
             $scope.newLFMarker.lat = e.target._latlng.lat;
             $scope.newLFMarker.lng = e.target._latlng.lng;
@@ -142,6 +144,9 @@ angular.module('lxlfApp')
         marker.contact = entry.snapshot.value.contact;
         marker.comments = entry.snapshot.value.comments;
         marker.category = entry.snapshot.value.category;
+        marker.tags = entry.snapshot.value.tags.map(function(elem){
+          return elem.text;
+        }).join(", ");
         $scope.markers.push(marker);
       });
 
@@ -159,6 +164,9 @@ angular.module('lxlfApp')
             marker.descLong = entry.snapshot.value.descLong;
             marker.contact = entry.snapshot.value.contact;
             marker.comments = entry.snapshot.value.comments;
+            marker.tags = entry.snapshot.value.tagsmap(function(elem){
+              return elem.text;
+            }).join(",");
             $scope.markers[i] = marker;
             break;
           }
@@ -167,6 +175,8 @@ angular.module('lxlfApp')
           $scope.selectedMarker = marker;
         }
       });
+
+      $scope.predicate = '';
 
       $scope.closeDetails = function() {
         $scope.selected = false;
@@ -223,6 +233,10 @@ angular.module('lxlfApp')
           $scope.name = '';
           $scope.body = '';
         }
+      };
+
+      $scope.formatTags = function(tags) {
+        console.log(tags);
       };
 
       $scope.submitComment = function(marker) {
