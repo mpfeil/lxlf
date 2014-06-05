@@ -36,6 +36,16 @@ body {
   border-radius: 5px;
 }
 
+.leaflet-control-my-location {
+  width:26px;
+  height:26px;
+  background-color: #fff;
+}
+
+.leaflet-control-my-location:hover {
+  background-color: #f4f4f4;
+}
+
 div.box {
   position: absolute;
   top: 1em;

@@ -23,9 +23,29 @@ angular.module('lxlfApp')
       L.drawLocal.draw.toolbar.buttons.marker = 'Add new Lost & Found';
       L.drawLocal.draw.handlers.marker.tooltip.start = 'Click to place marker!';
 
-      $scope.controls = {
-        custom: [ drawControl ]
+      var filterControl = L.control();
+      filterControl.setPosition('topleft');
+      filterControl.onAdd = function () {
+          var className = 'leaflet-control-my-location',
+              container = L.DomUtil.create('div', className + ' leaflet-bar leaflet-control');
+          var link = L.DomUtil.create('a', ' ', container);
+          link.href = '#';
+          L.DomUtil.create('i','fa fa-list fa-lg', link);
+
+          L.DomEvent
+            .on(link, 'click', L.DomEvent.preventDefault)
+            .on(link, 'click', function(){
+              $scope.filter = true;
+            });
+
+          return container;
       };
+
+      $scope.controls = {
+        custom: [ drawControl, filterControl ]
+      };
+
+      $scope.filter = false;
 
       leafletData.getMap().then(function(map){
         map.addLayer(drawnItems);
@@ -64,6 +84,9 @@ angular.module('lxlfApp')
         $scope.newItem.tags = 0;
         $scope.newItem.contact = 0;
         $scope.submitted = false;
+        leafletData.getMap().then(function(map){
+          drawnItems.clearLayers();
+        });
       };
 
       // function to submit the form after all validation has occurred      
@@ -118,6 +141,7 @@ angular.module('lxlfApp')
         marker.descLong = entry.snapshot.value.descLong;
         marker.contact = entry.snapshot.value.contact;
         marker.comments = entry.snapshot.value.comments;
+        marker.category = entry.snapshot.value.category;
         $scope.markers.push(marker);
       });
 
@@ -149,6 +173,10 @@ angular.module('lxlfApp')
         $scope.selectedMarker.length = 0;
       };
 
+      $scope.closeFilter = function() {
+        $scope.filter = false;
+      };
+
       $scope.formatTime = function(time) {
         var date = new Date(time);
         var day = date.getDate();
@@ -156,6 +184,16 @@ angular.module('lxlfApp')
         var year = date.getFullYear();
 
         return [day, month, year].join('/');
+      };
+
+      $scope.lostOrFound = function(marker) {
+        if (marker.category === 'found') {
+          return 'success';
+        } else if (marker.category === 'lost') {
+          return 'danger';
+        } else {
+          return 'warning';
+        }
       };
 
       $scope.addComment = function() {

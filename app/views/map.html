@@ -105,6 +105,23 @@
 				</div>
 			</form>
 		</div>
-		<leaflet center="center" markers="markers" controls="controls" width="100%" height="600"></leaflet>	
+		<div class="info box" ng-show="filter">
+			<h3>Filter <i class="fa fa-times pull-right close" ng-click="closeFilter()"></i></h3>
+			<hr>
+			<div class="row">
+				<div class="col-lg-8">
+			      	<input type="text" ng-model="filtertext.desc" class="form-control">
+				</div>
+				<div class="col-lg-4">
+					<div class="btn-group">
+				        <label class="btn btn-primary" ng-model="checkModel.left" btn-checkbox><i class="fa fa-sort-numeric-asc"></i></label>
+				        <label class="btn btn-primary" ng-model="checkModel.middle" btn-checkbox><i class="fa fa-sort-numeric-desc"></i></label>
+				    </div>
+				</div>
+			</div>
+			<hr>
+			<alert ng-repeat="marker in markers | filter:filtertext" type="{{lostOrFound(marker)}}">{{marker.desc}} <i class="fa fa-rocket pull-right close" ng-click="zoomTo(marker.lat,marker.lng)"></i></alert>
+		</div>
+		<leaflet center="center" markers="markers"  controls="controls" width="100%" height="600"></leaflet>	
 	</div>
 </div>

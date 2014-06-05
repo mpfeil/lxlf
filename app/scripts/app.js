@@ -25,10 +25,6 @@ angular
         templateUrl: 'views/contact.html',
         controller: 'ContactCtrl'
       })
-      .when('/map/new', {
-        templateUrl: 'views/new.html',
-        controller: 'NewCtrl'
-      })
       .otherwise({
         redirectTo: '/'
       });
