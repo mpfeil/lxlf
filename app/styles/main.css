@@ -65,6 +65,41 @@ div.box {
   color:black;
 }
 
+.jumbotron {
+  background-color:  #0074D9;
+}
+
+.circle {
+  width: 150px;
+  height: 150px;
+  -moz-border-radius: 50%; 
+  -webkit-border-radius: 50%; 
+  border-radius: 50%;
+  background: #4679BD;
+}
+
+.statistics {
+  display: inline-block;
+}
+
+.lost, .found, .total {
+  text-align: center;
+  display: inline-block;
+  border: 0px solid white;
+  width: 95px;
+  height: 95px;
+  border-radius: 47px;
+  font-size: 15px;
+  font-weight: 300;
+  margin: 20px 6px 6px 6px;
+  background-color: rgba(255,255,255,0.7);
+  
+}
+
+.timer-text {
+  font-size: 40px;
+}
+
 /* MARKETING CONTENT
 -------------------------------------------------- */
 
