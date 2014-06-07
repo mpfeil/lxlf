@@ -297,10 +297,6 @@ angular.module('lxlfApp')
         }
       };
 
-      $scope.formatTags = function(tags) {
-        console.log(tags);
-      };
-
       $scope.submitComment = function(marker) {
         var ref = new Firebase('https://lxlf.firebaseio.com/lost/'+marker.title);
         var commentsArray = [];

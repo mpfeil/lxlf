@@ -22,6 +22,15 @@ body {
   padding-right: 25px;
 }
 
+.contact {
+  background-color: rgb(227,70,43);
+  min-height: 600px;
+}
+
+.contact-content {
+  margin-top: 150px;
+}
+
 .container {
   width: 100%;
 }
@@ -66,7 +75,15 @@ div.box {
 }
 
 .jumbotron {
-  background-color:  #0074D9;
+  background-color:  rgb(50,57,147);
+}
+
+.page-header {
+  color: #FFFFFF;
+}
+
+.small {
+  color: #DDDDDD;
 }
 
 .circle {
@@ -136,32 +153,6 @@ div.box {
   letter-spacing: -1px;
 }
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    /*max-width: 730px;*/
-  }
-}
-
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 50px;
-    padding-right: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
-}
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
@@ -200,5 +191,31 @@ div.box {
 @media (min-width: 992px) {
   .featurette-heading {
     margin-top: 120px;
+  }
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    /*max-width: 730px;*/
+  }
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 50px;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
   }
 }
