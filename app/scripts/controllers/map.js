@@ -1,8 +1,14 @@
+/* 
+  Controller for map page.
+*/
+
 'use strict';
 
 angular.module('lxlfApp')
   .controller('MapCtrl', ['$scope', 'lxlfFactory', 'leafletData',
     function($scope, lxlfService, leafletData) {
+      
+      //defines our drawable layer for creating a new lost or found object
       var drawnItems = new L.FeatureGroup(),
         options = {
           edit: {
@@ -20,9 +26,11 @@ angular.module('lxlfApp')
         },
         drawControl = new L.Control.Draw(options);
 
+      // Change tooltips for drawing tool
       L.drawLocal.draw.toolbar.buttons.marker = 'Add new Lost & Found';
       L.drawLocal.draw.handlers.marker.tooltip.start = 'Click to place marker!';
 
+      //Create our own control for filtering 
       var filterControl = L.control();
       filterControl.setPosition('topleft');
       filterControl.onAdd = function () {
@@ -41,12 +49,16 @@ angular.module('lxlfApp')
         return container;
       };
 
+      //adds the controls to our map
       $scope.controls = {
         custom: [ drawControl, filterControl ]
       };
 
+      //model variables with default values
       $scope.filter = false;
+      $scope.securitycode = '';
 
+      //creates the security code for archiving
       function createUUID() {
         // http://www.ietf.org/rfc/rfc4122.txt
         var s = [];
@@ -62,8 +74,7 @@ angular.module('lxlfApp')
         return uuid;
       }
 
-      $scope.securitycode = '';
-
+      //map handler to handle new drawings
       leafletData.getMap().then(function(map){
         map.addLayer(drawnItems);
 
@@ -83,18 +94,19 @@ angular.module('lxlfApp')
         });
       });
 
+      //model variables with default values
       $scope.markers = [];
       $scope.selectedMarker;
       $scope.selected = false;
       $scope.newLF = false;
       $scope.oneAtATime = true;
       $scope.submitted = false;
-
       $scope.newLFMarker = {
         lat: 52,
         lng: 7,
       };
 
+      //function to clear variables of new lost or found object form
       function clearNewLFForm() {
         $scope.newLF = false;
         $scope.newItem.category = '';
@@ -136,6 +148,7 @@ angular.module('lxlfApp')
         }
       };
 
+      //helper functions for sidebar
       $scope.open = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
@@ -148,8 +161,12 @@ angular.module('lxlfApp')
         startingDay: 1
       };
 
+      //model variables with default values
       $scope.archiveIsCollapsed = true;
       $scope.secName = [];
+
+      //archive function
+      //flags the entry and deletes it from the model
       $scope.archive = function(marker,sec) {
         var secObj = {};
         secObj.name = marker.title;
@@ -170,6 +187,7 @@ angular.module('lxlfApp')
         }
       };
 
+      //model variables with default values
       $scope.initDate = new Date('2016-15-20');
       $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
       $scope.format = $scope.formats[0];
@@ -179,8 +197,11 @@ angular.module('lxlfApp')
         isFirstDisabled: false
       };
 
+      /*
+        triggered if a new child is added to our database
+        syncs the data and keeps it up to date
+      */
       lxlfService.$on('child_added', function(entry){
-        console.log('child_added');
         var secName = {};
         var marker = {};
         if (!entry.snapshot.value.flag) {
@@ -203,8 +224,11 @@ angular.module('lxlfApp')
         }
       });
 
+      /*
+        triggered if a child is changed in our database
+        syncs the data and keeps it up to date
+      */
       lxlfService.$on('child_changed', function(entry){
-        console.log('child_changed');
         if (entry.snapshot.value.flag) {
           for (var i = $scope.markers.length - 1; i >= 0; i--) {
             if ($scope.markers[i].title === entry.snapshot.name) {
@@ -238,8 +262,10 @@ angular.module('lxlfApp')
         }
       });
 
+      //model variables with default values
       $scope.predicate = '';
 
+      //helper function to close sidebar
       $scope.closeDetails = function() {
         $scope.selected = false;
         $scope.selectedMarker.length = 0;
@@ -249,6 +275,7 @@ angular.module('lxlfApp')
         $scope.filter = false;
       };
 
+      //helper funtion to format timestamp nicely
       $scope.formatTime = function(time) {
         var date = new Date(time);
         var day = date.getDate();
@@ -258,6 +285,7 @@ angular.module('lxlfApp')
         return [day, month, year].join('/');
       };
 
+      //categorize objects for filter panel
       $scope.lostOrFound = function(marker) {
         if (marker.category === 'found') {
           return 'success';
@@ -268,16 +296,19 @@ angular.module('lxlfApp')
         }
       };
 
+      //toggles comment form
       $scope.addComment = function() {
         $scope.comment = !$scope.comment;
       };
 
+      //model variables with default values
       $scope.center = {
         lat: 40.095,
         lng: -3.823,
         zoom: 4
       };
 
+      //counts comments
       $scope.getCommentCount = function(comments) {
         if (comments !== undefined) {
           return comments.length;
@@ -287,6 +318,7 @@ angular.module('lxlfApp')
         
       };
 
+      //callback function for submitting data to database
       $scope.onComplete = function(error) {
         if (error) {
           // alert('Synchronization failed.');
@@ -297,6 +329,7 @@ angular.module('lxlfApp')
         }
       };
 
+      //saves new comment to database
       $scope.submitComment = function(marker) {
         var ref = new Firebase('https://lxlf.firebaseio.com/lost/'+marker.title);
         var commentsArray = [];
@@ -307,12 +340,14 @@ angular.module('lxlfApp')
         ref.update({comments: commentsArray}, $scope.onComplete);
       };
 
+      //helper function to zoomTo object for filter sidebar
       $scope.zoomTo = function(lat,lng) {
         $scope.center.lat = lat;
         $scope.center.lng = lng;
         $scope.center.zoom = 18;
       };
 
+      //handles click on marker and opens the details sidebar
       $scope.$on('leafletDirectiveMarker.click', function(e, args) {
         // Args will contain the marker name and other relevant information
         for (var i = $scope.markers.length - 1; i >= 0; i--) {

@@ -22,15 +22,6 @@ body {
   padding-right: 25px;
 }
 
-.contact {
-  background-color: rgb(227,70,43);
-  min-height: 600px;
-}
-
-.contact-content {
-  margin-top: 150px;
-}
-
 .container {
   width: 100%;
 }
@@ -40,6 +31,12 @@ body {
   padding-right: 0;
 }
 
+
+/* MAP PAGE
+-------------------------------------------------- */
+/* all stylings for map page */
+
+/* styling for function buttons on the left */
 .info {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
@@ -55,6 +52,7 @@ body {
   background-color: #f4f4f4;
 }
 
+/* styling for sidebar */
 div.box {
   position: absolute;
   top: 1em;
@@ -74,6 +72,10 @@ div.box {
   color:black;
 }
 
+
+/* MAIN PAGE
+-------------------------------------------------- */
+/* all stylings for components on main page */
 .jumbotron {
   background-color:  rgb(50,57,147);
 }
@@ -117,9 +119,6 @@ div.box {
   font-size: 40px;
 }
 
-/* MARKETING CONTENT
--------------------------------------------------- */
-
 /* Pad the edges of the mobile views a bit */
 .marketing {
   padding-right: 15px;
@@ -139,9 +138,6 @@ div.box {
   margin-left: 10px;
 }
 
-/* Featurettes
-------------------------- */
-
 .featurette-divider {
   margin: 80px 0; /* Space out the Bootstrap <hr> more */
 }
@@ -153,6 +149,17 @@ div.box {
   letter-spacing: -1px;
 }
 
+/* CONTACT PAGE
+-------------------------------------------------- */
+/* stylings for contact page */
+.contact {
+  background-color: rgb(227,70,43);
+  min-height: 600px;
+}
+
+.contact-content {
+  margin-top: 150px;
+}
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */

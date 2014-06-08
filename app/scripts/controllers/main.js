@@ -1,13 +1,18 @@
+/* 
+  Controller for Main page
+*/
 'use strict';
 
 angular.module('lxlfApp')
   .controller('MainCtrl', ['$scope', 'lxlfFactory',
     function($scope, lxlfService) {
       
+      //man page model
       $scope.found = 0;
       $scope.lost = 0;
       $scope.happy = 0;
 
+      //generates the statistics for main page
       function checkStatus(entry) {
         var category = entry.snapshot.value.category;
         var flagged = entry.snapshot.value.flag;
@@ -33,6 +38,7 @@ angular.module('lxlfApp')
         }
       }
 
+      //Calls our factory to get data
       lxlfService.$on('child_added', function(entry){
         checkStatus(entry);
       });

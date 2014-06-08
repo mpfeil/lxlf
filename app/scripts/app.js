@@ -1,3 +1,9 @@
+/* 
+  Main entry point for the application!
+  Defines the routes for our views and
+  which controller to use.
+*/
+
 'use strict';
 
 angular
@@ -12,7 +18,7 @@ angular
     'ngTagsInput'
   ])
   .config(function ($routeProvider) {
-    $routeProvider
+    $routeProvider //Setup our routs for website
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
