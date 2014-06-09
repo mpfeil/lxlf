@@ -7,7 +7,7 @@ angular.module('lxlfApp')
   .controller('MainCtrl', ['$scope', 'lxlfFactory',
     function($scope, lxlfService) {
       
-      //man page model
+      //main page model
       $scope.found = 0;
       $scope.lost = 0;
       $scope.happy = 0;

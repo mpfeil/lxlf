@@ -164,6 +164,8 @@ angular.module('lxlfApp')
       //model variables with default values
       $scope.archiveIsCollapsed = true;
       $scope.secName = [];
+      $scope.secError = false;
+      $scope.secErrorText = '';
 
       //archive function
       //flags the entry and deletes it from the model
@@ -176,13 +178,17 @@ angular.module('lxlfApp')
           if ($scope.secName[i].name === marker.title && $scope.secName[i].sec === sec) {
             ref.update({flag:1}, function(error){
               if (error) {
-                //TODO error
+                $scope.secErrorText = 'Connection problems!';
+                $scope.secError = true;    
               } else {
+                $scope.secError = false;
+                $scope.secErrorText = '';
                 $scope.selected = false;
               }
             });
           } else {
-            //TODO error
+            $scope.secErrorText = 'Security code not correct!';
+            $scope.secError = true;
           }
         }
       };

@@ -9,8 +9,9 @@
 					One more happy <i class="fa fa-child"></i> <strong>lxlf</strong> user. <br />
 					To archive this case type in the security code you got:
 					<form name="archiveCase" ng-submit="archive(selectedMarker,sec)">
-						<div class="form-group">
+						<div class="form-group" ng-class="{ 'has-error' : secError}">
 							<input class="form-control" type="text" ng-model="sec" required>
+							<p ng-show="secError" class="help-block">{{secErrorText}}</p>
 						</div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-success form-control"><i class="fa fa-send-o">&nbsp; Archive</i></button>
